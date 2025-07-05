@@ -102,20 +102,21 @@ void Individuo::mutazione_inversione_blocco(double prob, Random& _rnd)
 
         if (_rnd.Rannyu() < prob)
     {
-        int i1,i2;
-        do{
-        i1 = _rnd.Rannyu(1, _n_citta);
-        i2 = _rnd.Rannyu(1, _n_citta);
-        }
-        while (abs(i2 - i1) < 2);
+        int i1, i2;
+        // Scegli due indici distinti (almeno distanza 2) per delimitare il blocco da invertire
+        do {
+            i1 = _rnd.Rannyu(1, _n_citta);
+            i2 = _rnd.Rannyu(1, _n_citta);
+        } while (abs(i2 - i1) < 2);
 
+        // Ordina gli indici in modo che i1 < i2
         if (i1 > i2) swap(i1, i2);
 
-        for (int i = 0; i < (i2 - i1 +1) / 2; i++)
+        // Inverti il blocco compreso tra i1 e i2 (estremi inclusi)
+        for (int i = 0; i < (i2 - i1 + 1) / 2; i++)
         {
             swap(_tragitto(i1 + i), _tragitto(i2 - i));
         }
-            
     }
 }
 
